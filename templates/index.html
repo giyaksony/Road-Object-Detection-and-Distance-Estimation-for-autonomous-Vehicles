@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Road Object Detection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <div class="app-container">
+        <header>
+            <h1>VisionDrive</h1>
+            <p>Detection System with Distance Estimation & Collision Warnings</p>
+        </header>
+
+        <main>
+            <section id="upload-section" class="card fade-in">
+                <form id="upload-form" enctype="multipart/form-data">
+                    <div class="drop-zone" id="drop-zone">
+                        <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        <p>Drag video here or <span class="browse-link">browse</span></p>
+                        <input type="file" id="video-file" name="video" accept="video/*" class="file-input">
+                    </div>
+
+                    <div class="button-group" style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button type="submit" class="primary-btn" id="analyze-btn" disabled style="flex: 1;">Analyze
+                            Uploaded Video</button>
+                        <button type="button" class="secondary-btn" id="live-btn" style="flex: 1;">Use Live Front
+                            Cam</button>
+                    </div>
+                </form>
+
+                <div id="loading" class="hidden">
+                    <div class="spinner"></div>
+                    <p>Waking up AI Engine...</p>
+                </div>
+            </section>
+
+            <section id="result-section" class="card hidden">
+                <div class="video-header">
+                    <h2 id="status-text">Monitoring Road...</h2>
+                    <button id="new-video-btn" class="secondary-btn">Stop & Reset</button>
+                </div>
+                <div class="video-container" style="background: #000; border-radius: 10px; overflow: hidden;">
+                    <img id="video-stream" src="" width="100%" style="display: block; min-height: 300px;">
+                </div>
+                <div class="legend" style="margin-top: 15px; font-size: 0.9em; color: #666;">
+                    <p>🔴 <strong>Red Box:</strong> Critical distance (< 15m) in vehicle path.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>
